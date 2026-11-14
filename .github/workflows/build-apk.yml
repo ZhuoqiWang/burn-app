@@ -1,4 +1,4 @@
-name: Build Flet APK
+name: Build Flet APK (Community Template)
 
 on:
   push:
@@ -8,25 +8,27 @@ on:
 jobs:
   build-apk:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build APK with Flet
-        uses: flet-dev/flet-build-action@v1
-        env:
-          FLET_CLI_LOG_FORMAT: "plain"   # 关键：强制纯文本日志，确保JSON可解析
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          target: apk
-          runner-python-version: "3.12"
-          bundled-python-version: "3.12"
-          extra-args: --no-rich-output  # 关键：禁用富文本输出
-          # 注意：如果之前的环境变量仍然保留，也可以，但 extra-args 更直接
+          python-version: '3.12'
 
-      - name: Upload APK Artifact
+      - name: Install Flet
+        run: |
+          pip install flet==1.0.5
+
+      - name: Build APK
+        env:
+          FLET_CLI_LOG_FORMAT: "plain"
+        run: |
+          flet build apk --verbose
+
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: burn-calculator-apk
+          name: app-apk
           path: build/apk/*.apk
-          if-no-files-found: error
