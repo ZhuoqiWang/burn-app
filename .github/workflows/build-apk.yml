@@ -15,6 +15,10 @@ jobs:
       - name: Build APK with Flet
         id: build
         uses: flet-dev/flet-build-action@v1
+      - name: Build APK with Flet
+        uses: flet-dev/flet-build-action@v1
+        env:
+          FLET_BUILD_NO_RICH_OUTPUT: "true"   # 关键：禁用富文本输出
         with:
           target: apk
 
