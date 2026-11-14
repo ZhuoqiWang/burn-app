@@ -178,8 +178,8 @@ def main(page: ft.Page):
         ft.Row(
             [
                 make_button("成人", "adult"),
-                make_button("儿童\n（大于2岁）", "child"),
-                make_button("儿童\n（小于2岁）", "infant"),
+                make_button("儿童\n>2岁", "child"),
+                make_button("儿童\n<2岁", "infant"),
             ],
             spacing=10,
         ),
