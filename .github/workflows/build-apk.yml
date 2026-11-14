@@ -18,15 +18,19 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Pre-install Flutter SDK 3.44.8
+        run: |
+          git clone --depth 1 --branch 3.44.8 https://github.com/flutter/flutter.git $HOME/flutter
+          echo "$HOME/flutter/bin" >> $GITHUB_PATH
+          flutter config --no-analytics --enable-web
+
       - name: Install Flet
         run: |
           pip install flet==1.0.5
 
       - name: Build APK
-        env:
-          FLET_CLI_LOG_FORMAT: "plain"   # 保持纯文本日志，避免解析问题
         run: |
-          flet build apk -y --verbose    # -y 自动确认所有提示
+          flet build apk --verbose
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
