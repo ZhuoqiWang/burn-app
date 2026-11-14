@@ -1,9 +1,8 @@
 [project]
 name = "burn-calculator"
 version = "1.0.0"
-# 关键：将 Python 版本限制在 3.12，避开 3.14 的兼容性风险
 requires-python = ">=3.12,<3.13"
 dependencies = [
-    "flet==1.2.0",      # 尝试一个较新的版本
-    "flet-cli==1.2.0",
+    "flet==1.0.5",
+    "flet-cli==1.0.5",
 ]
