@@ -71,7 +71,6 @@ def main(page: ft.Page):
             data=value,
             on_click=select_type,
             expand=True,
-            style=ft.ButtonStyle(alignment=ft.Alignment.CENTER),
         )
 
 
@@ -202,4 +201,6 @@ def main(page: ft.Page):
         ft.Divider(height=10),
         result_heat,
     )
-ft.run(main
+
+
+ft.run(main)
