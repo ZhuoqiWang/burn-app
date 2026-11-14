@@ -18,11 +18,17 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Pre-install Flutter SDK 3.44.8
+      - name: Clone Flutter SDK 3.44.8
         run: |
           git clone --depth 1 --branch 3.44.8 https://github.com/flutter/flutter.git $HOME/flutter
+
+      - name: Add Flutter to PATH
+        run: |
           echo "$HOME/flutter/bin" >> $GITHUB_PATH
-          flutter config --no-analytics --enable-web
+
+      - name: Verify Flutter
+        run: |
+          flutter --version
 
       - name: Install Flet
         run: |
