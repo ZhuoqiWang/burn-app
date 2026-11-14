@@ -15,12 +15,12 @@ jobs:
 
       - name: Build APK with Flet
         uses: flet-dev/flet-build-action@v1
-        env:
-          FLET_BUILD_NO_RICH_OUTPUT: "true"
         with:
           target: apk
           runner-python-version: "3.12"
           bundled-python-version: "3.12"
+          extra-args: --no-rich-output  # 关键：禁用富文本输出
+          # 注意：如果之前的环境变量仍然保留，也可以，但 extra-args 更直接
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
