@@ -1,4 +1,4 @@
-name: Build Flet APK (Manual)
+name: Build Flet APK (Stable)
 
 on:
   push:
@@ -18,17 +18,18 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Clone Flutter SDK 3.44.8
-        run: |
-          git clone --depth 1 --branch 3.44.8 https://github.com/flutter/flutter.git $HOME/flutter
+      # 关键：使用专用 Action 安装完整 Flutter SDK，自动处理 PATH 和缓存
+      - name: Set up Flutter 3.44.8
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.8'
+          channel: stable
+          cache: true
 
-      - name: Add Flutter to PATH
-        run: |
-          echo "$HOME/flutter/bin" >> $GITHUB_PATH
-
-      - name: Verify Flutter
+      - name: Verify Flutter and Precache Engine
         run: |
           flutter --version
+          flutter precache --android # 强制下载 Android 引擎产物，预防 sky_engine 缺失
 
       - name: Install Flet
         run: |
